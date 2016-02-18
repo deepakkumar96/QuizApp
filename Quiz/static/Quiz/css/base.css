@@ -1,0 +1,60 @@
+
+.center{
+    margin-top: 100px;
+    background-color: floralwhite;
+    width: 20%;
+    left: 40%;
+    position: absolute;
+}
+
+.pointer{
+	cursor: pointer;
+}
+
+.inline{
+	display:inline;
+}
+
+.nav{
+	//height:10px;
+	
+}
+
+.play{
+	margin: auto;
+	border: 10px solid lightblue;
+	padding: 20px;
+	//text-align: center;
+	width: 60%;
+}
+
+td{
+	text-align: center;
+}
+
+.make-it-center{
+	text-align: center;
+}
+
+.code{
+	width: 100%;
+}
+
+.href{
+	text-transform: none;
+	font-size: 18px;
+}
+
+.question-font{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size: 18px;
+}
+
+.option-font{
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	font-size: 16px;
+}
+
+.play-tags{
+	font-family: Georgia, serif;
+}

@@ -1,0 +1,39 @@
+angular.module('quizApp', ['ngRoute', 'ngCookies', 'ui.bootstrap'])
+    .config(function($routeProvider, $interpolateProvider) {
+        $interpolateProvider.startSymbol('[[');
+        $interpolateProvider.endSymbol(']]');
+    
+        $routeProvider.when('/', {
+            templateUrl: 'views/home_page.html',
+            controller: 'MainController as controller'
+        })
+        .when('/login', {
+            templateUrl: 'views/login.html',
+            controller: 'LoginController as controller'
+        })
+        .when('/signup',{
+            templateUrl: 'views/sign_up.html',
+            controller: 'SignupController as controller'
+        })
+        .when('/language/:id', {
+            templateUrl: 'views/language_detail.html',
+            controller: 'LanguageController as controller'
+        })
+        .when('/user/:user_id', {
+            templateUrl: 'views/user_detail.html',
+			controller: 'UserController as controller'
+        })
+        .when('/play/:language_id/:level_id/:total_questions', {
+            templateUrl: 'views/play.html',
+            controller: 'PlayController as playCtrl'
+        })
+        .otherwise({
+            redirectTo: '/'
+        })
+    
+    })
+    .run(['$http', '$cookies', function($http, $cookies){
+        $http.defaults.headers.post['X-CSRFToken'] = $cookies.get('csrftoken');
+    }]);
+    
+    

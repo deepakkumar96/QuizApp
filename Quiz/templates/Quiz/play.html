@@ -1,0 +1,101 @@
+<div class="play-container">
+    <h2></h2>
+
+    <div class="">
+    <table class="well table play">
+        <thead>
+            <tr class="play-tags">
+                <td align="pull-left" width="40%">
+                    Language [[ playCtrl.questions[0].language ]]
+                    [[ playCtrl.questions[0].level ]]
+                </td>
+                <td>Correct  [[ playCtrl.totalCorrect ]]</td>
+                <td>Wrong [[ playCtrl.totalIncorrect]]</td>
+                <td width="10%">
+                    <span ng-bind="playCtrl.time.getTime()"></span>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="4">
+                    <div class="">
+                        <div id="question" class="question-font">
+                            <br>
+                            <!--[[ playCtrl.currentQuestion + 1 ]].
+                            --> 
+                            [[ playCtrl.questions[playCtrl.
+                               currentQuestion].question_text ]]
+                        </div>
+                        <div ng-show="playCtrl.questions[playCtrl.
+                             currentQuestion].code" 
+                             class="make-it-center"><br>
+                             <code>
+                            <textarea rows=6 
+                                      cols="60" 
+                                      class="form-control">[[ playCtrl.questions[playCtrl.currentQuestion].code ]]
+                            </textarea>
+                            </code>
+                        </div>
+                        <br>
+                        <div class="options">
+                            <div ng-repeat="option in playCtrl.questions[
+                                 playCtrl.currentQuestion].options">
+                                 <!--[[ ($index+1) ]] :-->
+                                <a href="" 
+                                   ng-click="playCtrl.nextQuestion([[
+                                             option.is_correct]])"
+                                   class="href option-font">
+                                [[ option.option_text ]]
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4"></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!-- <h4>Correct : [[ playCtrl.total_correct ]] Question: </h4>
+    <div class="question">
+        Question :  
+        [[ playCtrl.questions[playCtrl.currentQuestion].question_text ]]
+        <div class="code">
+           <span ng-show="playCtrl.questions[playCtrl.currentQuestion].code">
+               Code :
+               <textarea rows=6 cols="60">[[ playCtrl.questions[playCtrl.currentQuestion].code ]]</textarea>
+           </span>
+
+        </div>
+        <div class="option">
+            <div ng-repeat="option in playCtrl.questions[playCtrl.currentQuestion].options">
+                [[ ($index+1) ]] :
+                <a href="" ng-click="playCtrl.isCorrect([[option.is_correct]])">
+                    <span ng-bind="option.option_text"></span>
+                </a>
+            </div>
+        </div>
+        <br/>
+        <button class="btn btn-success" ng-click="playCtrl.nextQuestion()">Next Question</button>
+    </div>
+    <br>
+    <div>
+        <form>
+            <table>
+                <tr>
+                    <td><button class="btn btn-info" ng-click="playCtrl.saveUserScore()">
+                        Save Score
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    </div>
+    -->
+</div>

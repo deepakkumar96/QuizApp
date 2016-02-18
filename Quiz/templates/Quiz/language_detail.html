@@ -1,0 +1,44 @@
+<div ng-if="controller.language">
+    <h2>
+        [[ controller.language.language_name ]]
+        <span class="badge">Played [[ controller.language.play_count ]] times</span>
+    </h2>
+    <!-- <h2>[[ controller.language.language_type ]]</h2> -->
+    <h4>80</h4>
+    <div class="btn-group">
+        <label ng-repeat="level in controller.language.levels"
+               ng-model="controller.activeLevel"
+               uib-btn-radio="'[[ $index ]]'"
+               class="btn btn-primary">
+               <font size="1" class="inline">[[ level.level_name ]]</font>
+        </label>
+
+    </div><br>
+    
+    <!--<ul >
+        <li  ng-repeat="level in controller.language.levels">
+            <button class="btn btn-primary"
+                    ng-click="controller.activeLevel=$index"
+                    >
+                <h4  style="display:inline;">
+                    [[ level.level_name ]]
+                    
+                </h4>
+            </button>
+        </li>
+        <a class="pull-right" href="#/play/[[controller.language.pk]]/[[controller.language.levels[controller.activeLevel].pk]]/10"><h4>Play</h4></a>
+    </ul> -->
+    
+
+    <br>
+    <ul class="list-group"><!-- [[ controller.activeLevel ]] -->
+        <li class="list-group-item active2">
+            Score
+            <a class="pull-right" href="#/play/[[controller.language.pk]]/[[controller.language.levels[controller.activeLevel].pk]]/10">Play</a>
+        </li>
+        <li class="list-group-item" ng-repeat="score in controller.language.levels[controller.activeLevel].scores">
+            [[ ($index+1) + '.   ' + score.account.first_name ]]
+            <span ng-bind="score.score" class="badge"></span>
+        </li>
+    </ul>
+</div>

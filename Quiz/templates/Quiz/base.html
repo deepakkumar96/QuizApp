@@ -1,0 +1,27 @@
+{%load staticfiles %}
+<!DOCTYPE html>
+<html lang="en" ng-app="quizApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'Quiz/css/bootstrap.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'Quiz/css/base.css' %}">
+</head>
+<body>
+    {% block content %}
+
+    {% endblock %}
+
+    <script src="{% static 'Quiz/js/apps/vendors/angular.js' %}"></script>
+    <script src="{% static 'Quiz/js/apps/vendors/angular-cookies.js' %}"></script>
+    <script src="{% static 'Quiz/js/apps/vendors/angular-route.js' %}"></script>
+	<script src="{% static 'Quiz/js/apps/vendors/jquery-1.11.1.js' %}"></script>
+    <script src="{% static 'Quiz/js/apps/vendors/bootstrap.js' %}"></script>
+    <script src="{% static 'Quiz/js/apps/app.js' %}"></script>
+    <script src="{% static 'Quiz/js/apps/controllers.js' %}"></script>
+    <script src="{% static 'Quiz/js/apps/services.js' %}"></script>
+	<script src="{% static 'Quiz/js/apps/vendors/ui-bootstrap-tpls-1.1.2.js' %}"></script>
+	<script src="{% static 'Quiz/js/apps/vendors/angular-animate.js' %}"></script>
+    <script src="{% static 'Quiz/js/widgets/util.js' %}"></script>
+</body>
+</html>

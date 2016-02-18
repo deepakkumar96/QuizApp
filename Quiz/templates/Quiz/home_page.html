@@ -1,0 +1,51 @@
+<div ng-controller="HomeController as homeController">
+	home
+	
+  <script type="text/ng-template" id="alert.html">
+    <div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+      <div ng-transclude></div>
+    </div>
+  </script>
+
+  <uib-alert template-url="alert.html">Alert UI 2</uib-alert>
+  <!--<uib-carousel interval="myInterval" no-wrap="noWrapSlides">
+      <uib-slide ng-repeat="slide in homeController.slides" active="slide.active" index="slide.id">
+        <img ng-src="[[slide.image]]" style="margin:auto;">
+        <div class="carousel-caption">
+          <h4>Slide [[slide.id]]</h4>
+          <p>[[slide.text]]</p>
+        </div>
+      </uib-slide>
+    </uib-carousel>-->
+
+    <div class="btn-group" uib-dropdown>
+      <button id="single-button" 
+              type="button" 
+              class="btn btn-primary" 
+              uib-dropdown-toggle 
+              ng-disabled="disabled">
+        Languages <span class="caret"></span>
+      </button>
+      <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+        <li ng-repeat="language in homeController.languages">
+          <a href="#">[[ language ]]</a>
+        </li>
+      </ul>
+    </div>
+
+    
+    <span uib-dropdown on-toggle="toggled(open)">
+      <a href id="simple-dropdown" uib-dropdown-toggle>
+        Click me for a dropdown, yo!
+      </a>
+      <ul uib-dropdown-menu aria-labelledby="simple-dropdown">
+        <li>
+          <a href="#">Java</a>
+        </li>
+        <li>
+          <a href="#">Scala</a>
+        </li>
+      </ul>
+    </span>
+	 
+</div>

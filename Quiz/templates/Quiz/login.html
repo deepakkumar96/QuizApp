@@ -1,0 +1,42 @@
+<div class="container">
+        <div class="center">
+            <form name="loginForm"
+            ng-submit="controller.login()"
+            class="form-horizontal"
+            role="form">
+          <div class="form-group">
+              <label for="email">Username</label>
+              <input type="text"
+                     ng-model="controller.user.username"
+                     class="form-control"
+                     id="email"
+                     placeholder="Enter Username"
+                     required="">
+          </div>
+          <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password"
+                     ng-model="controller.user.password"
+                     class="form-control"
+                     id="password"
+                     placeholder="Enter Password"
+                     required="">
+          </div>
+          <div class="form-group">
+                <div class="">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Remember me
+                    </label>
+                </div>
+                </div>
+          </div>
+
+          <input type="submit"
+                 class="btn btn-success"
+                 value="Login"
+                 ng-disabled="loginForm.$invalid">
+      </form>
+      </div>
+</div>
+
