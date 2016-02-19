@@ -57,7 +57,10 @@ def sign_up(request):
 def user_session(request):
     print('session : ', request.user)
     if request.user.is_authenticated():
-        return HttpResponse(request.user, status=200)
+        return JSONResponse(
+            data=request.user.email,
+            status=200
+        )
     else:
         return HttpResponse(status=400)
 

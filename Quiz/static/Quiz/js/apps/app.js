@@ -1,6 +1,7 @@
 angular.module('quizApp', ['ngRoute', 'ngCookies', 'ui.bootstrap'])
-    .config(function($routeProvider, $interpolateProvider) {
-        $interpolateProvider.startSymbol('[[');
+	.config(function($httpProvider, $routeProvider, $interpolateProvider) {
+		$httpProvider.interceptors.push('AuthIntercepter');
+		$interpolateProvider.startSymbol('[[');
         $interpolateProvider.endSymbol(']]');
     
         $routeProvider.when('/', {
@@ -31,9 +32,6 @@ angular.module('quizApp', ['ngRoute', 'ngCookies', 'ui.bootstrap'])
             redirectTo: '/'
         })
     
-    })
-    .run(['$http', '$cookies', function($http, $cookies){
-        $http.defaults.headers.post['X-CSRFToken'] = $cookies.get('csrftoken');
-    }]);
+    });
     
     

@@ -1,18 +1,28 @@
 angular.module('quizApp')
+	.factory('AuthIntercepter', ['$cookies', function($cookies){
+		return{
+			request: function(config){
+				if(config.method == 'POST'){
+					config.headers['X-CSRFToken'] = $cookies.get('csrftoken');
+				}
+				return config;
+			}
+		};//$httpProvider.defaults.post['X-CSRFToken'] = $cookies.get('csrftoken');
+	}])
     .factory('UserService', ['$http', function($http){
         var service =  {
             user: '',
             isLoggedIn: false,
             login: function(user){
-                   return $http.post('/api/login/', user).then(function(response){
+                   return $http.post('/api/login/', user)/*.then(function(response){
                         service.isLoggedIn = true;
                         service.user = response.data;
-                        console.log("response : " + service.user);
+                        console.log("Service login response : " + service.user);
                         return response;
-                    });
+                    })*/;
             },
             logout: function(){
-                   return $http.post('/api/logout/');
+                   return $http.get('/api/logout/');
             },
             session: function(){
                 return $http.get('/api/session/').then(function(response){
@@ -20,7 +30,9 @@ angular.module('quizApp')
                     service.isLoggedIn = true;
                     service.user = response.data;
                     return response;
-                });   
+                }, function(response){
+					console.log("You are not logged id!");
+				});   
             },
 			getUserDetail: function(user_email){
 				return $http.get('/api/user/' + user_email + '/');

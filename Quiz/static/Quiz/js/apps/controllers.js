@@ -31,12 +31,13 @@ angular.module('quizApp')
         
         self.login = function(){
             UserService.login(self.user).then(function(success){
-                console.log("controller response : " + success.data);
+                console.log("controller login response : " + success.data);
                 UserService.isLoggedIn = true;
                 UserService.user = success.data;
                 $location.path('/');
             }, function(error){
                 console.log('Error while login');
+				console.log(error.data)
 				alert(angular.isObject(error.data));
 				alert(error.data);
             });
@@ -57,7 +58,7 @@ angular.module('quizApp')
 					console.log("Logout");
 					UserService.user = '';
 					UserService.isLoggedIn = false;
-					$location.path('#/login');
+					$location.path('/login');
 				}, function(){
 					console.log("Error while logout");   
 				});   
@@ -155,7 +156,7 @@ angular.module('quizApp')
                 console.log(response.data);
             });
         };
-		self.time = new Time();
+		/*self.time = new Time();
 		self.manageTime = function(){
 			self.time.increment();
 			if(self.time.isComplete()){
@@ -165,7 +166,7 @@ angular.module('quizApp')
 			console.log(self.time.getTime());
 		}
 		
-		stop = $interval(self.manageTime, 10);
+		stop = $interval(self.manageTime, 10);*/
         
     }])
     .controller('LanguageController', ['$routeParams', 'LanguageService',        
