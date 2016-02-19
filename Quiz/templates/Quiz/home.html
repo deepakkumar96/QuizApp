@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block content %}
 <div>
-
+    {% csrf_token %}
         <div ng-controller="MainController as controller">
             <nav class="navbar navbar-inverse navbar-fixed">
                 <div class="container">
