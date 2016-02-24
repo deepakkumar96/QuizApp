@@ -25,14 +25,7 @@ angular.module('quizApp')
                    return $http.get('/api/logout/');
             },
             session: function(){
-                return $http.get('/api/session/').then(function(response){
-                    console.log("service session response : " + response.data);
-                    service.isLoggedIn = true;
-                    service.user = response.data;
-                    return response;
-                }, function(response){
-					console.log("You are not logged id!");
-				});   
+                return $http.get('/api/session/');
             },
 			getUserDetail: function(user_email){
 				return $http.get('/api/user/' + user_email + '/');

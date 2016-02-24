@@ -5,7 +5,7 @@
     {% csrf_token %}
         <div ng-controller="MainController as controller">
             <nav class="navbar navbar-inverse navbar-fixed">
-                <div class="container">
+                <div class="container" role="menu">
                     <div class="navbar-header">
                         <!-- <img src="{% static 'Quiz/images/note.png' %}"> -->
                         <a href="#/" class="navbar-brand">Quiz</a>
@@ -13,16 +13,20 @@
                     <ul class="nav navbar-nav">
                         <li ng-class="{active: controller.isActive('/language')}"><a href="#/">Home</a></li>
                         <li ng-class="{active: controller.isActive('/language')}" class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown">Languages<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                {% for language in languages %}
-                                 <li>
-                                     <a href="#/language/{{language.pk}}">{{ language }}</a>
-                                 </li>
-                                {% endfor %}
-                            </ul>
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown">
+								Languages
+							</a>
+							<ul class="dropdown-menu" role="menu">
+								{% for language in languages %}
+									<li>
+										<a href="#/language/{{language.pk}}">
+											{{ language.language_name }}
+										</a>
+									</li>
+								{% endfor %}
+							</ul>
                         </li>
-                        <li ng-class="{active: controller.isActive('/user/[[controller.userService.user]]')}"
+						<li ng-class="{active: controller.isActive('/user/[[controller.userService.user]]')}"
                             ng-if="controller.userService.isLoggedIn">
                             <a href="#/user/[[ controller.userService.user ]]">
                                 [[ controller.userService.user ]]

@@ -26,7 +26,24 @@ angular.module('quizApp', ['ngRoute', 'ngCookies', 'ui.bootstrap'])
         })
         .when('/play/:language_id/:level_id/:total_questions', {
             templateUrl: 'views/play.html',
-            controller: 'PlayController as playCtrl'
+            controller: 'PlayController as playCtrl',
+			resolve : {
+				auth : ['$q', '$location', 'UserService',
+					function($q, $location, UserService){
+						UserService.session().then(
+							function(response){
+								console.log('session is available.');
+								console.log(response.status);
+							},
+							function(response){
+								$location.path('/login');
+								$location.replace();
+								return $q.reject(response);
+							}
+						);
+					}
+				]
+			}
         })
         .otherwise({
             redirectTo: '/'

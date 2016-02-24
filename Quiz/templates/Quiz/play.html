@@ -56,7 +56,17 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="4"></td>
+                <td colspan="2">
+                    [[ playCtrl.currentQuestion+1 ]]
+                    [[ playCtrl.questions.length ]]
+                </td>
+                <td colspan="2">
+                    <a href=""
+                       class="href" 
+                       ng-click="playCtrl.saveUserScore()">
+                        Save Your Score
+                    </a>
+                </td>
             </tr>
         </tfoot>
     </table>

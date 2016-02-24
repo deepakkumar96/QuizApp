@@ -68,7 +68,13 @@ angular.module('quizApp')
 				alert(self.userService.user);
 				alert(self.userService.isLoggedIn);
 			}
-			UserService.session();
+			UserService.session().then(function(response){
+                console.log("service session response : " + response.data);
+                self.userService.isLoggedIn = true;
+                self.userService.user = response.data;
+            }, function(response){
+				console.log("You are not logged id!");
+			});   
 			//console.log('user : '+ self.userService.user);
 			//console.log("login : " + self.userService.isLoggedIn);
     }])
@@ -88,20 +94,21 @@ angular.module('quizApp')
 		}
 	])
 	
-    .controller('SignupController', ['$http', function($http) {
+    .controller('SignupController', ['$http', '$location', function($http, $location) {
         var self = this;
         self.user = null;
         self.repeatPassword = "1234";
         
         self.signUp = function(){
             if(self.user){
-                console.log(self.user);
                 $http.post('/signup/', self.user).then(function(response){
-                    console.log("User account created.");
+					console.log("User account created.");
                     console.log(response.data);
+					$location.path('/');
                 }, function(response){
                     console.log("Error while creating user account.");
                     console.log("Response : " + response.data);
+					alert("Error while creating user account.");
                 });
             }
             else{
@@ -110,8 +117,9 @@ angular.module('quizApp')
         };
     }])
 
-    .controller('PlayController', ['$routeParams', 'ScoreService', 'QuestionService', '$interval', 
-        function(routeParams, ScoreService, QuestionService, $interval) {
+    .controller('PlayController', [
+		'$routeParams', 'ScoreService', 'QuestionService', '$interval', 'UserService', '$location',
+        function(routeParams, ScoreService, QuestionService, $interval, UserService, $location) {
         var self = this;
         self.questions = {};
         self.currentQuestion = 0;
@@ -125,7 +133,7 @@ angular.module('quizApp')
         });
         
         self.nextQuestion = function(result){
-            if(self.currentQuestion < self.questions.length){
+            if((self.currentQuestion+1) <= self.questions.length){
                 self.currentQuestion++;
 				self.isCorrect(result);
 			}
@@ -145,18 +153,24 @@ angular.module('quizApp')
             
         self.saveUserScore = function(){
             var userScore = {
-                account: 'admin@gmail.com',
-                language: 1, level: 1,
-                score: 100, time_taken: 16, total_time: 10,
-                total_question: 20, total_correct: 8
+                account: UserService.user,
+                language: routeParams.language_id,
+				level: routeParams.level_id,
+                score: (self.totalCorrect / routeParams.total_questions)*100, 
+				time_taken: 10, 
+				total_time: 10,
+                total_question: routeParams.total_questions, 
+				total_correct: self.totalCorrect
             };
-            ScoreService.saveUserScore(userScore).then(function(response){
+			console.log(userScore);
+			ScoreService.saveUserScore(userScore).then(function(response){
                 console.log("Score Saved to Server : "+ response.data);
+				$location.path('/')
             }, function(response){
                 console.log(response.data);
             });
         };
-		/*self.time = new Time();
+		self.time = new Time();
 		self.manageTime = function(){
 			self.time.increment();
 			if(self.time.isComplete()){
@@ -166,7 +180,7 @@ angular.module('quizApp')
 			console.log(self.time.getTime());
 		}
 		
-		stop = $interval(self.manageTime, 10);*/
+		stop = $interval(self.manageTime, 1000);
         
     }])
     .controller('LanguageController', ['$routeParams', 'LanguageService',        
