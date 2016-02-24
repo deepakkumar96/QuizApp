@@ -9,7 +9,7 @@
 </head>
 <body>
     {% block content %}
-    
+    {{csrf_token}}
     {% endblock %}
 
     <script src="{% static 'Quiz/js/apps/vendors/angular.min.js' %}"></script>
@@ -24,5 +24,13 @@
 	<script src="{% static 'Quiz/js/apps/vendors/ui-bootstrap-tpls-1.1.2.min.js' %}"></script>
 	<script src="{% static 'Quiz/js/apps/vendors/angular-animate.min.js' %}"></script>
     <script src="{% static 'Quiz/js/apps/Time.js' %}"></script>
+
+    <script>
+    var app = angular.module('quizApp'); 
+    app.config(['$httpProvider', function($httpProvider) {
+        $httpProvider.defaults.headers.common['X-CSRFToken'] = '{{ csrf_token|escapejs }}';
+    }]);
+    </script>
+
 </body>
 </html>

@@ -1,6 +1,5 @@
 angular.module('quizApp', ['ngRoute', 'ngCookies', 'ui.bootstrap'])
 	.config(function($httpProvider, $routeProvider, $interpolateProvider) {
-		$httpProvider.interceptors.push('AuthIntercepter');
 		$interpolateProvider.startSymbol('[[');
         $interpolateProvider.endSymbol(']]');
     
