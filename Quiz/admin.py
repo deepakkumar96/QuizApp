@@ -28,5 +28,6 @@ admin.site.register(Question, QuestionAdmin)
 admin.site.register(Option)
 admin.site.register(UserScore)
 admin.site.register(Language, LanguageAdmin)
+admin.site.register(Challenge)
 
 

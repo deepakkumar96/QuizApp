@@ -44,6 +44,13 @@ class UserScoreSerializer(serializers.ModelSerializer):
                   'total_question', 'total_correct', 'score')
 
 
+class ShortUserScoreSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserScore
+        fields = ('total_time', 'time_taken', 'total_question', 'total_correct', 'score')
+
+
 class LevelSerializer(serializers.ModelSerializer):
     scores = UserScoreSerializer(many=True, read_only=True)
     level_name = serializers.StringRelatedField()
@@ -59,6 +66,20 @@ class LanguageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Language
         fields = ('pk', 'language_name', 'language_type', 'play_count', 'levels')
+
+
+class ChallengeSerializer(serializers.ModelSerializer):
+    user_from = serializers.StringRelatedField()
+    user_to = serializers.StringRelatedField()
+    # language = serializers.SlugRelatedField(slug_field='language_name', read_only=True)
+    score = ShortUserScoreSerializer()
+
+    class Meta:
+        model = Challenge
+        fields = (
+            'pk', 'user_from', 'user_to', 'language', 'level',
+            'is_accepted', 'message', 'score'
+        )
 
 
 class LanguageWithQuestion(serializers.ModelSerializer):

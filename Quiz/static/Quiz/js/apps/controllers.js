@@ -1,5 +1,6 @@
 angular.module('quizApp')
 	.controller('HomeController', [function(){
+        console.log("HomeController gets called!");
 		var self = this;
 		self.myInterval = 5000;
 		self.noWrapSlides = false;
@@ -44,10 +45,12 @@ angular.module('quizApp')
         };
     }])
 
-    .controller('MainController', ['$window', '$location', 'UserService',
-		function($window, $location, UserService){
-			var self = this;
-			$window.title = "Quiz";
+    .controller('MainController', ['$window', '$location', 'UserService', '$http', '$interval',
+		function($window, $location, UserService, $http, $interval){
+            console.log("MainController gets called!");
+            var self = this;
+            self.challenges = [];
+            $window.title = "Quiz";
 			self.isActive = function(route){
 				return route == $location.path();
 			}
@@ -63,6 +66,18 @@ angular.module('quizApp')
 					console.log("Error while logout");   
 				});   
 			}
+            
+            self.getNewChallenges = function(){
+                $http.get('/runtime/getChallengesIfAvailable/').then(
+                    function(response){
+                        self.challenges = response.data;
+                        console.log(response.data);
+                    },
+                    function(response){
+                        console.log("Error while fetching challenges!");
+                    }
+                );
+            }
         
 			self.userDetail = function(){
 				alert(self.userService.user);
@@ -72,25 +87,39 @@ angular.module('quizApp')
                 console.log("service session response : " + response.data);
                 self.userService.isLoggedIn = true;
                 self.userService.user = response.data;
+                //self.getNewChallenges();
             }, function(response){
 				console.log("You are not logged id!");
 			});   
 			//console.log('user : '+ self.userService.user);
 			//console.log("login : " + self.userService.isLoggedIn);
+            
+            if(self.userService.isLoggedIn){
+                self.getNewChallenges();
+            }
+            else
+                console.log(self.userService.isLoggedIn);
+            $interval(function(){
+                if(self.userService.isLoggedIn)
+                    self.getNewChallenges();
+            }, 10000);
     }])
 	
-	.controller('UserController', ['UserService', 
-		function(UserService){
+	.controller('UserController', ['UserService', '$window',
+		function(UserService, $window){
+            console.log('UserController gte called');
 			var self = this;
 			self.userData = null;
 			
 			UserService.getUserDetail(UserService.user).then(function(response){
 				self.userData = response.data;
 				console.log(self.userData);
-				window.title = self.userData.username;
+                document.title = self.userData.first_name;
+				document["background-color"] = 'green';
 			}, function(response){
 				console.log(response.data);
 			});
+            
 		}
 	])
 	
@@ -138,7 +167,7 @@ angular.module('quizApp')
 				self.isCorrect(result);
 			}
 			else{
-				alert("Score : \n"+"Correct : "+self.totalCorrect+"\nIncorrect : "+self.totalIncorrect);
+				alert("Score : \n"+"Correct : "+self.totalCorrect+"\nIncorrect :"+self.totalIncorrect);
 			}
         };
         
@@ -179,10 +208,12 @@ angular.module('quizApp')
 			}
 			console.log(self.time.getTime());
 		}
-		
-		stop = $interval(self.manageTime, 1000);
         
+        if(stop)
+            $interval.cancel(stop);
+        stop = $interval(self.manageTime, 1000);
     }])
+
     .controller('LanguageController', ['$routeParams', 'LanguageService',        
         function(routeParams, LanguageService){
         var self = this;

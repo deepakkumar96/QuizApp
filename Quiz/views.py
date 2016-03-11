@@ -151,6 +151,11 @@ class UserScoreDetail(generics.RetrieveDestroyAPIView):
     serializer_class = UserScoreSerializer
 
 
+class ChallengeDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Challenge.objects.all()
+    serializer_class = ChallengeSerializer
+
+
 def play_data(request, language_id, level_id, total_questions):
     if request.method == 'GET':
         language = Language.objects.get(pk=language_id)
@@ -263,4 +268,13 @@ def get_login_template(request):
 
 
 def get_home_page_template(request):
-	return render(request, 'Quiz/home_page.html')
+    return render(request, 'Quiz/home_page.html')
+
+
+# Challenge Related Views
+
+def get_challenges_if_available(request):
+    print(request.user)
+    challenges = Challenge.objects.filter(is_accepted=False, user_to=request.user)
+    serializer = ChallengeSerializer(challenges, many=True)
+    return JSONResponse(data=serializer.data)

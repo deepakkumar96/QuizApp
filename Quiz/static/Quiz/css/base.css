@@ -1,7 +1,7 @@
 
 .center{
     margin-top: 100px;
-    //background-color: floralwhite;
+    //background-color: darkslategray;
     width: 20%;
     left: 40%;
     position: absolute;
@@ -22,7 +22,7 @@
 
 .play{
 	margin: auto;
-	border: 10px solid lightblue;
+	border: 10px solid black;
 	padding: 20px;
 	//text-align: center;
 	width: 60%;

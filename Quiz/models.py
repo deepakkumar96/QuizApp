@@ -208,3 +208,20 @@ class UserScore(models.Model):
 
     def calculate_score(self):
         return self.score
+
+
+class Challenge(models.Model):
+    user_from = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='challenges',
+        related_query_name='challenge'
+    )
+    user_to = models.ForeignKey(settings.AUTH_USER_MODEL)
+    language = models.ForeignKey(Language)
+    level = models.ForeignKey(Level)
+    is_accepted = models.BooleanField(default='False')
+    message = models.CharField(max_length=200)
+    score = models.ForeignKey(UserScore)
+
+    def __str__(self):
+        return self.user_from.first_name + ' to ' + self.user_to.first_name

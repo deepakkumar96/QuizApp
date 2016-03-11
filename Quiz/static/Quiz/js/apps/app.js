@@ -5,7 +5,7 @@ angular.module('quizApp', ['ngRoute', 'ngCookies', 'ui.bootstrap'])
     
         $routeProvider.when('/', {
             templateUrl: 'views/home_page.html',
-            controller: 'MainController as controller'
+            controller: 'HomeController as homeController'
         })
         .when('/login', {
             templateUrl: 'views/login.html',
@@ -49,5 +49,3 @@ angular.module('quizApp', ['ngRoute', 'ngCookies', 'ui.bootstrap'])
         })
     
     });
-    
-    

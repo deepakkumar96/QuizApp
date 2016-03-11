@@ -1,14 +1,24 @@
-<div>
+<div style="background-color:url('[[ controller.userData.wallpaper ]]'); ">
     <a ng-href="[[ controller.userData.profile_picture ]]">
 	<img ng-src="[[ controller.userData.profile_picture ]]" 
     	 width="100" 
     	 height="100">
 	</a>
     <span ng-bind="controller.userData.first_name"></span>
+	<span ng-bind="controller.userData.last_name"></span>
 	<div>
-		
 		<ul>
-			<li ng-repeat="user in controller.userData">[[user]]</li>
+			<li>
+				Gender : 
+				<span ng-if="controller.userData.gender=='M'">Male</span>
+				<span ng-if="controller.userData.gender=='F'">Female</span>
+			</li>
+			
+			<li ng-if="controller.userData.location">
+				Location :
+				<span ng-bind="controller.userData.location"></span>
+			</li>
+			
 		</ul>
 
 	</div>

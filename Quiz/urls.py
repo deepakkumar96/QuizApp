@@ -13,8 +13,7 @@ urlpatterns = [
     url(r'views/sign_up.html', views.get_sign_up_template, name='get_sign_up_template'),
     url(r'views/login.html', views.get_login_template, name='get_login_template'),
     url(r'views/home_page.html', views.get_home_page_template, name='get_home_page_template'),
-	# url(r'questions/', views.questions_list, name='questions_list'),
-
+    # url(r'questions/', views.questions_list, name='questions_list'),
 
     # Rest_Framework
 
@@ -30,7 +29,12 @@ urlpatterns = [
     url(r'^scores/$', views.UserScoreList.as_view()),
     url(r'^scores/create/$', views.save_user_score),
     url(r'^score/(?P<pk>[A-Za-z@._%0-9]+)/$', views.UserScoreDetail.as_view()),
-    #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    url(r'^api/challenge/(?P<pk>[0-9]+)/$', views.ChallengeDetail.as_view()),
 
     url(r'questions/(?P<language_id>[0-9]+)/(?P<level_id>[0-9]+)/(?P<total_questions>[0-9]+)', views.play_data),
+
+    # Challenge Related URLS
+    url(r'runtime/getChallengesIfAvailable/', views.get_challenges_if_available, name='get_challenges_if_available')
 ]
